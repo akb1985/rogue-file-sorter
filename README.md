@@ -16,9 +16,3 @@ A cross-platform, zero-configuration background service that watches your downlo
 Edit the global configuration file to add custom watch folders or mappings. Restart the service to apply changes.
 - **Windows:** `C:\ProgramData\RogueFileSorter\config.yaml`
 - **macOS/Linux:** `/etc/roguefilesorter/config.yaml`
-
-## Architecture
-See DECISIONS.md for architectural details.
-
-## Building
-See BUILDS.md for build instructions.

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="Rogue File Auto-Sorter" Language="1033" Version="1.0.0.0" Manufacturer="OpenSource" UpgradeCode="PUT-GUID-HERE">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+        <MajorUpgrade DowngradeErrorMessage="A newer version is already installed." />
+        <MediaTemplate EmbedCab="yes" />
+
+        <Feature Id="ProductFeature" Title="Rogue File Sorter Service" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+        </Feature>
+    </Product>
+
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="RogueFileSorter" />
+            </Directory>
+            <Directory Id="CommonAppDataFolder">
+                <Directory Id="CONFIGFOLDER" Name="RogueFileSorter" />
+            </Directory>
+        </Directory>
+    </Fragment>
+
+    <Fragment>
+        <ComponentGroup Id="ProductComponents">
+            <Component Id="MainExecutable" Directory="INSTALLFOLDER" Guid="*">
+                <File Id="RogueSorterExe" Source="..\..\dist\roguefilesorter.exe" KeyPath="yes" />
+                <ServiceInstall Id="ServiceInstaller"
+                                Type="ownProcess"
+                                Name="RogueFileSorter"
+                                DisplayName="Rogue File Auto-Sorter"
+                                Description="Automatically sorts files based on extensions."
+                                Start="auto"
+                                Account="LocalSystem"
+                                ErrorControl="normal" />
+                <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="RogueFileSorter" Wait="yes" />
+            </Component>
+            
+            <Component Id="GlobalConfig" Directory="CONFIGFOLDER" Guid="*">
+                <File Id="DefaultConfig" Source="..\..\src\config\default_config.yaml" Name="config.yaml" KeyPath="yes" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>

@@ -1,0 +1,19 @@
+#!/bin/bash
+mkdir -p /etc/roguefilesorter
+if [ ! -f "/etc/roguefilesorter/config.yaml" ]; then
+    cp /tmp/roguefilesorter_payload/default_config.yaml /etc/roguefilesorter/config.yaml
+    chmod 666 /etc/roguefilesorter/config.yaml
+fi
+
+mkdir -p /var/log/roguefilesorter
+chmod 777 /var/log/roguefilesorter
+
+cp /tmp/roguefilesorter_payload/com.roguefilesorter.daemon.plist /Library/LaunchDaemons/
+chown root:wheel /Library/LaunchDaemons/com.roguefilesorter.daemon.plist
+chmod 644 /Library/LaunchDaemons/com.roguefilesorter.daemon.plist
+
+launchctl unload /Library/LaunchDaemons/com.roguefilesorter.daemon.plist 2>/dev/null
+launchctl load /Library/LaunchDaemons/com.roguefilesorter.daemon.plist
+
+open -a TextEdit /etc/roguefilesorter/config.yaml
+exit 0

@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+# Enable it for all users
+systemctl --global enable roguefilesorter.service
+
+echo "=========================================================="
+echo "✅ Rogue File Sorter installed!"
+echo " "
+echo "It will automatically start when you next log in."
+echo "To start it immediately for your current session, run:"
+echo "   systemctl --user start roguefilesorter"
+echo " "
+echo "To sort existing files right now, run:"
+echo "   roguefilesorter --sort-now"
+echo "=========================================================="

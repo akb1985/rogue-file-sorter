@@ -1,0 +1,12 @@
+[Unit]
+Description=Rogue File Auto-Sorter Daemon
+After=default.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/roguefilesorter
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
